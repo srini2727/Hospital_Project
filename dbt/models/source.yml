@@ -1,0 +1,55 @@
+# in models/sources.yml
+
+version: 2
+
+sources:
+  - name: hospital_raw_data # A name for this group of sources
+    database: HOSPITAL_DB  # Your database name
+    schema: HOSPITAL_BRONZE # The schema with your uploaded CSVs
+    tables:
+      - name: HOSPITAL_1_PATIENT
+      - name: HOSPITAL_2_PATIENT
+      - name: HOSPITAL_3_PATIENT
+      - name: HOSPITAL_1_DOCTOR 
+      - name: HOSPITAL_2_DOCTOR  
+      - name: HOSPITAL_3_DOCTOR 
+      - name: HOSPITAL_1_APPOINTMENT 
+      - name: HOSPITAL_2_APPOINTMENT
+      - name: HOSPITAL_3_APPOINTMENT
+      - name: HOSPITAL_1_BEDS
+      - name: HOSPITAL_2_BEDS
+      - name: HOSPITAL_3_BEDS
+      - name: HOSPITAL_1_DEPARTMENT
+      - name: HOSPITAL_2_DEPARTMENT
+      - name: HOSPITAL_3_DEPARTMENT
+      - name: HOSPITAL_1_MEDICAL_TESTS
+      - name: HOSPITAL_2_MEDICAL_TESTS
+      - name: HOSPITAL_3_MEDICAL_TESTS
+      - name: HOSPITAL_1_SUPPLIER
+      - name: HOSPITAL_2_SUPPLIER
+      - name: HOSPITAL_3_SUPPLIER
+      - name: HOSPITAL_1_HOSPITAL_BILLS
+      - name: HOSPITAL_2_HOSPITAL_BILLS
+      - name: HOSPITAL_3_HOSPITAL_BILLS
+      - name: HOSPITAL_1_MEDICAL_STOCK
+      - name: HOSPITAL_2_MEDICAL_STOCK
+      - name: HOSPITAL_3_MEDICAL_STOCK
+      - name: HOSPITAL_1_MEDICINE_PATIENT
+      - name: HOSPITAL_2_MEDICINE_PATIENT
+      - name: HOSPITAL_3_MEDICINE_PATIENT
+      - name: HOSPITAL_1_PATIENT_TESTS
+      - name: HOSPITAL_2_PATIENT_TESTS
+      - name: HOSPITAL_3_PATIENT_TESTS
+      - name: HOSPITAL_1_ROOMS
+      - name: HOSPITAL_2_ROOMS
+      - name: HOSPITAL_3_ROOMS
+      - name: HOSPITAL_1_SATISFACTION
+      - name: HOSPITAL_2_SATISFACTION
+      - name: HOSPITAL_3_SATISFACTION
+      - name: HOSPITAL_1_STAFF
+      - name: HOSPITAL_2_STAFF
+      - name: HOSPITAL_3_STAFF
+      - name: HOSPITAL_1_SURGERY
+      - name: HOSPITAL_2_SURGERY
+      - name: HOSPITAL_3_SURGERY
+             

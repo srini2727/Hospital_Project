@@ -1,0 +1,46 @@
+# Name of your project
+name: 'hospital_analytics'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'hospital_analytics'
+
+# These are the paths where dbt will find different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# This is where we configure our models.
+models:
+  hospital_analytics:
+    # We are adding this section to enforce quoting.
+    quoting:
+      database: true
+      schema: true
+      identifier: true
+    # Materialize all models in the project as views in HOSPITAL_DATA_DB
+    +materialized: view
+    +database: HOSPITAL_DATA_DB
+
+    # Configuration for the staging layer
+    hospital_staging:
+      +schema: HOSPITAL_STAGING
+      +materialized: view
+# NEW: Silver layer config
+    hospital_silver:
+      +schema: HOSPITAL_SILVER
+      # We want our silver models to be tables for better performance
+      +materialized: table
+ # NEW: Gold layer config for analytics marts
+    hospital_gold:
+      +schema: HOSPITAL_GOLD
+      # Gold models are typically views for real-time data access
+      +materialized: view

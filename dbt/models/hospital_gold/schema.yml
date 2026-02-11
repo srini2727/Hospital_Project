@@ -1,0 +1,116 @@
+version: 2
+
+models:
+  # Dimension Views
+  - name: dim_departments
+    description: "Dimension table for departments. Row count should match the silver table."
+    tests:
+      # This test ensures no rows were dropped from the silver layer.
+      - row_count_reconciliation:
+          parent_models: [ref('departments')]
+    columns:
+      - name: department_id
+        tests:
+          - unique:
+              config: {severity: warn} # Known duplicates from silver layer
+          - not_null
+
+  - name: dim_staff
+    description: "Dimension table for staff. Row count should match the silver table."
+    tests:
+      # This test ensures no rows were dropped from the silver layer.
+      - row_count_reconciliation:
+          parent_models: [ref('staff')]
+    columns:
+      - name: staff_id
+        tests: [unique, not_null]
+
+  # Fact & Enriched Views
+  - name: fct_appointments
+    description: "Fact table for all patient appointments."
+    tests:
+      # This test ensures no rows were dropped from the silver layer.
+      - row_count_reconciliation:
+          parent_models: [ref('appointments')]
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: patient_id
+        tests:
+          - relationships:
+              to: ref('dim_patient_info')
+              field: PATIENT_ID
+      - name: doctor_id
+        tests:
+          - relationships:
+              to: ref('dim_doctors') # Assumes dim_doctors exists or will be created
+              field: doctor_id
+
+  - name: fct_bills
+    description: "Unpivoted fact table for all bill line items."
+    # We do not add a row count test here because unpivoting changes the row count.
+    # The financial reconciliation is handled by a separate singular test.
+    columns:
+      - name: patient_id
+        tests:
+          - relationships:
+              to: ref('dim_patient_info')
+              field: PATIENT_ID
+
+  - name: fct_medicine_patient
+    description: "Fact table for medicine prescriptions."
+    tests:
+      # This test ensures no rows were dropped from the silver layer.
+      - row_count_reconciliation:
+          parent_models: [ref('medicine_patient')]
+    columns:
+      - name: id
+        tests: [unique, not_null]
+
+  - name: fct_patient_tests
+    description: "Fact table for patient tests."
+    tests:
+      # This test ensures no rows were dropped from the silver layer.
+      - row_count_reconciliation:
+          parent_models: [ref('patient_tests')]
+    columns:
+      - name: id
+        tests: [unique, not_null]
+
+  # Aggregated & Complex Views (These require singular .sql tests for row counts)
+  - name: beds_info
+    description: "Aggregated view of bed counts by type and status."
+    # We do not add a row count test here because aggregation changes the row count.
+    columns:
+      - name: room_id
+        tests: [not_null]
+      - name: bed_count
+        tests:
+          - dbt_utils.at_least_one
+
+  - name: medical_stock_info
+    description: "Enriched view of medical stock with supplier names."
+    tests:
+      # This test ensures the join with suppliers didn't drop records.
+      - row_count_reconciliation:
+          parent_models: [ref('medical_stock')]
+    columns:
+      - name: id
+        tests: [unique, not_null]
+      - name: supplier_id
+        tests:
+          - relationships:
+              to: ref('supplier')
+              field: supplier_id
+
+  - name: dim_patient_info
+    description: "The primary patient dimension, a 360-degree view of the patient."
+    # We do not add a row count test here because deduplication changes the row count.
+    # This is handled by a separate singular test.
+    columns:
+      - name: PATIENT_ID
+        tests: [unique, not_null]
+      - name: "Had Surgery"
+        tests:
+          - accepted_values:
+              values: ['Yes', 'No']

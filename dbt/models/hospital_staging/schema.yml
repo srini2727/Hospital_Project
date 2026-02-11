@@ -1,0 +1,96 @@
+version: 2
+
+# This section defines your raw source tables.
+sources:
+  - name: hospital_bronze
+    database: HOSPITAL_DATA_DB
+    schema: HOSPITAL_BRONZE
+    tables:
+      #Lowercase tables
+      - name: appointments_h1
+      - name: appointments_h2
+      - name: appointments_h3
+      - name: beds_h1
+      - name: beds_h2
+      - name: beds_h3
+      - name: doctors_h1
+      - name: doctors_h2
+      - name: doctors_h3
+      - name: hospital_bills_h1
+      - name: hospital_bills_h2
+      - name: hospital_bills_h3
+      - name: medicine_patient_h1
+      - name: medicine_patient_h2
+      - name: medicine_patient_h3
+      - name: patient_tests_h1
+      - name: patient_tests_h2
+      - name: patient_tests_h3
+      - name: patients_h1
+      - name: patients_h2
+      - name: patients_h3
+      - name: rooms_h1
+      - name: rooms_h2
+      - name: rooms_h3
+      - name: satisfaction_score_h1
+      - name: satisfaction_score_h2
+      - name: satisfaction_score_h3
+      - name: staff_h1
+      - name: staff_h2
+      - name: staff_h3
+      - name: surgery_h1
+      - name: surgery_h2
+      - name: surgery_h3
+      # Uppercase tables
+      - name: DEPARTMENT_H1
+      - name: MEDICAL_TESTS_H1
+      - name: SUPPLIER_H1
+      - name: DEPARTMENT_H2
+      - name: DEPARTMENT_H3
+      - name: MEDICAL_TESTS_H2
+      - name: MEDICAL_TESTS_H3
+      - name: SUPPLIER_H2
+      - name: SUPPLIER_H3
+
+# This section defines simple data quality tests on your staging models.
+models:
+  # Department Models
+  - name: stg_department_h1
+    columns:
+      - name: department_id
+        tests: [unique, not_null]
+  - name: stg_department_h2
+    columns:
+      - name: department_id
+        tests: [unique, not_null]
+  - name: stg_department_h3
+    columns:
+      - name: department_id
+        tests: [unique, not_null]
+
+  # Patient Models
+  - name: stg_patients_h1
+    columns:
+      - name: patient_id
+        tests: [unique, not_null]
+  - name: stg_patients_h2
+    columns:
+      - name: patient_id
+        tests: [unique, not_null]
+  - name: stg_patients_h3
+    columns:
+      - name: patient_id
+        tests: [unique, not_null]
+
+  # Appointment Models
+  - name: stg_appointments_h1
+    columns:
+      - name: appointment_id
+        tests: [unique, not_null]
+  - name: stg_appointments_h2
+    columns:
+      - name: appointment_id
+        tests: [unique, not_null]
+  - name: stg_appointments_h3
+    columns:
+      - name: appointment_id
+        tests: [unique, not_null]

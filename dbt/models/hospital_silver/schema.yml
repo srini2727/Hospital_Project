@@ -1,0 +1,114 @@
+version: 2
+
+models:
+  - name: departments
+    description: "Combined list of all departments from all hospitals."
+    tests:
+      # THIS IS THE FIX: The call to the custom test no longer has the 'test_' prefix.
+      - row_count_reconciliation:
+          parent_models: [ref('stg_department_h1'), ref('stg_department_h2'), ref('stg_department_h3')]
+    columns:
+      - name: department_id
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - not_null
+
+  - name: doctors
+    description: "Combined list of all doctors from all hospitals."
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_doctors_h1'), ref('stg_doctors_h2'), ref('stg_doctors_h3')]
+    columns:
+      - name: doctor_id
+        tests: [unique, not_null]
+
+  - name: patients
+    description: "Combined list of all patients from all hospitals."
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_patients_h1'), ref('stg_patients_h2'), ref('stg_patients_h3')]
+    columns:
+      - name: patient_id
+        tests: [unique, not_null]
+
+  - name: appointments
+    description: "Combined list of all appointments from all hospitals."
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_appointments_h1'), ref('stg_appointments_h2'), ref('stg_appointments_h3')]
+    columns:
+      - name: appointment_id
+        tests: [unique, not_null]
+      - name: patient_id
+        tests:
+          - not_null
+          - relationships: { to: ref('patients'), field: patient_id }
+      - name: doctor_id
+        tests:
+          - not_null
+          - relationships: { to: ref('doctors'), field: doctor_id }
+
+  - name: hospital_bills
+    description: "Combined list of all hospital bills from all hospitals."
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_hospital_bills_h1'), ref('stg_hospital_bills_h2'), ref('stg_hospital_bills_h3')]
+    columns:
+      - name: bill_id
+        tests: [unique, not_null]
+      - name: patient_id
+        tests:
+          - not_null
+          - relationships: { to: ref('patients'), field: patient_id }
+  
+  - name: beds
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_beds_h1'), ref('stg_beds_h2'), ref('stg_beds_h3')]
+
+  - name: medical_stock
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_medical_stock_h1'), ref('stg_medical_stock_h2'), ref('stg_medical_stock_h3')]
+          
+  - name: medical_tests
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_medical_tests_h1'), ref('stg_medical_tests_h2'), ref('stg_medical_tests_h3')]
+
+  - name: medicine_patient
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_medicine_patient_h1'), ref('stg_medicine_patient_h2'), ref('stg_medicine_patient_h3')]
+
+  - name: patient_tests
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_patient_tests_h1'), ref('stg_patient_tests_h2'), ref('stg_patient_tests_h3')]
+          
+  - name: rooms
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_rooms_h1'), ref('stg_rooms_h2'), ref('stg_rooms_h3')]
+          
+  - name: satisfaction_score
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_satisfaction_score_h1'), ref('stg_satisfaction_score_h2'), ref('stg_satisfaction_score_h3')]
+          
+  - name: staff
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_staff_h1'), ref('stg_staff_h2'), ref('stg_staff_h3')]
+          
+  - name: supplier
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_supplier_h1'), ref('stg_supplier_h2'), ref('stg_supplier_h3')]
+          
+  - name: surgery
+    tests:
+      - row_count_reconciliation:
+          parent_models: [ref('stg_surgery_h1'), ref('stg_surgery_h2'), ref('stg_surgery_h3')]
