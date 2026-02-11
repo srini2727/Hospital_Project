@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Executive Summary
+## 🎯Summary
 
 **Hospital Analytics** demonstrates a real-world architecture where a healthcare organization operates three synchronized data pipelines from distinct hospital systems:
 
