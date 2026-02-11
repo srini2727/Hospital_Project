@@ -324,20 +324,6 @@ GOLD (7 models - analytics ready)
 
 ---
 
-## 📖 Portfolio Value
-
-**Interview Question:** "Walk me through your dbt project architecture."
-
-**You Can Now Say:**
-> "I have a production-grade dbt project with 52 models across 3 layers:
-> - 30 staging models (single-source cleaning)
-> - 15 silver models with multi-source reconciliation (handles misaligned columns)
-> - 7 gold models (star schema for BI)
-> 
-> All models are visible on GitHub. See the `appointments.sql` model—it demonstrates 
-> how I detect and fix shifted columns using conditional logic. The project also includes 
-> 12+ data quality rules, quarantine tables for failed rows, and row count reconciliation 
-> macros to prevent silent data loss."
 
 **GitHub Link:** https://github.com/srini2727/Hospital_Project/tree/main/dbt/models
 
@@ -355,7 +341,4 @@ GOLD (7 models - analytics ready)
 - ✅ Interview-ready showcase
 
 ---
-
-**Last Updated:** February 2025  
-**All Models Status:** ✅ VISIBLE ON GITHUB  
 **Portfolio Status:** ✅ ENTERPRISE-GRADE

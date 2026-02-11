@@ -255,14 +255,6 @@ models:
               field: patient_id
 ```
 
-## 📈 Performance
-
-| Layer | Rows | Queries | Avg Duration |
-|-------|------|---------|--------------|
-| Staging | 45M | 30 models | 5 min |
-| Silver | 1.2M | 15 models | 10 min |
-| Gold | 1.2M | 7 models | 2 min |
-| **Total** | - | **52 models** | **17 min** |
 
 Incremental loads (after day 1):
 - Full load: 17 minutes
@@ -298,6 +290,4 @@ Incremental loads (after day 1):
 - [Medallion Architecture](https://www.databricks.com/blog/2022/06/24/multi-hop-architecture-is-it-relevant-anymore.html)
 
 ---
-
-**Questions?** See the documentation folder or check inline SQL comments in models.
 
