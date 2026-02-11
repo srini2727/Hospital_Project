@@ -39,10 +39,11 @@ wheels/
 *~
 .DS_Store
 
-# dbt
+# dbt (build artifacts - regenerated on run)
 hospital_analytics/target/
 hospital_analytics/dbt_packages/
 hospital_analytics/logs/
+hospital_analytics/dbt.log
 
 # Mage
 mage_data/
